@@ -29,13 +29,14 @@ const ProductItem = () => {
 
   return (
   
-        
+      <div>
+{}
     <div className="w-1/3 bg-white shadow-lg/30 rounded-md">
       <img
         className="h-52 w-full object-cover rounded-md"
         src="https://plus.unsplash.com/premium_photo-1762456150986-61cdf6363ca1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDM4fHRvd0paRnNrcEdnfHxlbnwwfHx8fHw%3D&auto=format&fit=crop&q=60&w=500"
         alt=""
-      />
+        />
       <div className="mt-3 text-left px-4 flex flex-col gap-3">
         <h1 className="font-bold text-2xl">Title</h1>
         <p>
@@ -63,6 +64,7 @@ const ProductItem = () => {
         ADD TO CART
       </button>
         </div>
+        </div>  
 
   );
 };
