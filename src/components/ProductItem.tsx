@@ -1,40 +1,14 @@
-import { useEffect, useState } from "react";
 import type { ProductType } from "../types/ProductType";
 
-const ProductItem = () => {
-  const [products, setProducts] = useState<ProductType[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [errors, setErrors] = useState<string>("");
+interface ProductItemProps {
+    item:ProductType;
+}
 
-
-
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("https://dummyjson.com/products");
-      if (!response.ok) {
-        throw new Error ("NetWork Response is not oK");
-      }
-      const data = await response.json();
-      setProducts(data);
-    } catch (error) {
-      console.log("There are Some Errors", error);
-      setErrors(errors);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  });
-
+const ProductItem = ({item}:ProductItemProps) => {
+  
   return (
   <div>
-    {loading && <p>loading...</p>}
-      <h1 className="font-bold text-2xl">Product List</h1>
-      {errors && <p className="text-red-800 text-2xl">{errors}</p>}
-    {products.map((item) => (
+    
       <div key={item.id} className="w-1/3 bg-white shadow-lg/30 rounded-md">
         <img
           className="h-52 w-full object-cover rounded-md"
@@ -61,14 +35,13 @@ const ProductItem = () => {
 
         <div className="flex flex-col gap-3 pt-5">
           <p className="text-gray-600">Rating: {item.rating}</p>
-          <h1 className="self-end px-3 py-2">Total: ${item.finalPrice}</h1>
+          <h1 className="self-end px-3 py-2">Total: ${(item.price-((item.price*item.discountPercentage)/100)).toFixed(2)}</h1>
         </div>
 
         <button className="bg-linear-to-r from-purple-600 to-pink-500 mt-5 px-3 py-2 w-full rounded-md">
           ADD TO CART
         </button>
       </div>
-    ))}
   </div>
 );
 }
