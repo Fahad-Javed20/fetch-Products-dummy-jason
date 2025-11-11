@@ -1,72 +1,76 @@
-// import { useEffect, useState } from "react";
-// import type { ProductType } from "../types/ProductType";
+import { useEffect, useState } from "react";
+import type { ProductType } from "../types/ProductType";
 
 const ProductItem = () => {
-//   const [products, setProducts] = useState<ProductType[]>([]);
-//   const [loading, setLoading] = useState<boolean>(false);
-//   const [errors, setErrors] = useState<string>("");
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<string>("");
 
-//   const fetchData = async () => {
-//     try {
-//       setLoading(true);
-//       const response = await fetch("https://dummyjson.com/products");
-//       if (!response.ok) {
-//         throw new Error ("NetWork Response is not oK");
-//       }
-//       const data = await response.json();
-//       setProducts(data);
-//     } catch (error) {
-//       console.log("There are Some Errors", error);
-//       setErrors(errors);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
 
-//   useEffect(() => {
-//     fetchData();
-//   });
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("https://dummyjson.com/products");
+      if (!response.ok) {
+        throw new Error ("NetWork Response is not oK");
+      }
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.log("There are Some Errors", error);
+      setErrors(errors);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  });
 
   return (
-  
-      <div>
-{}
-    <div className="w-1/3 bg-white shadow-lg/30 rounded-md">
-      <img
-        className="h-52 w-full object-cover rounded-md"
-        src="https://plus.unsplash.com/premium_photo-1762456150986-61cdf6363ca1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDM4fHRvd0paRnNrcEdnfHxlbnwwfHx8fHw%3D&auto=format&fit=crop&q=60&w=500"
-        alt=""
+  <div>
+    {loading && <p>loading...</p>}
+      <h1 className="font-bold text-2xl">Product List</h1>
+      {errors && <p className="text-red-800 text-2xl">{errors}</p>}
+    {products.map((item) => (
+      <div key={item.id} className="w-1/3 bg-white shadow-lg/30 rounded-md">
+        <img
+          className="h-52 w-full object-cover rounded-md"
+          src="https://plus.unsplash.com/premium_photo-1762456150986-61cdf6363ca1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDM4fHRvd0paRnNrcEdnfHxlbnwwfHx8fHw%3D&auto=format&fit=crop&q=60&w=500"
+          alt=""
         />
-      <div className="mt-3 text-left px-4 flex flex-col gap-3">
-        <h1 className="font-bold text-2xl">Title</h1>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem,
-          quae.adipisicing elit. Rem, quae.
-        </p>
-      </div>
-
-      <div className="flex justify-between">
-        <div className="flex mt-3 px-4">
-          <span className="font-bold mr-2">Price: </span>
-          <span>$400</span>
+        <div className="mt-3 text-left px-4 flex flex-col gap-3">
+          <h1 className="font-bold text-2xl">{item.title}</h1>
+          <p>
+            {item.description}
+          </p>
         </div>
-        <div className="flex mt-3 px-4">
-          <span className="font-bold mr-2">Discount: </span>
-          <span>12%</span>
+
+        <div className="flex justify-between">
+          <div className="flex mt-3 px-4">
+            <span className="font-bold mr-2">Price:</span>
+            <span>${item.price}</span>
+          </div>
+          <div className="flex mt-3 px-4">
+            <span className="font-bold mr-2">Discount:</span>
+            <span>{item.discountPercentage}%</span>
+          </div>
         </div>
-      </div>
 
-      <div className="flex flex-col gap-3 pt-5">
-        <p className="text-gray-600">Rating: 3.5</p>
-        <h1 className="self-end px-3 py-2 ">Total: $300</h1>
-      </div>
-      <button className="bg-linear-to-r from-purple-600 to-pink-500 mt-5 px-3 py-2 w-full rounded-md">
-        ADD TO CART
-      </button>
+        <div className="flex flex-col gap-3 pt-5">
+          <p className="text-gray-600">Rating: {item.rating}</p>
+          <h1 className="self-end px-3 py-2">Total: ${item.finalPrice}</h1>
         </div>
-        </div>  
 
-  );
-};
+        <button className="bg-linear-to-r from-purple-600 to-pink-500 mt-5 px-3 py-2 w-full rounded-md">
+          ADD TO CART
+        </button>
+      </div>
+    ))}
+  </div>
+);
+}
 
-export default ProductItem;
+export default ProductItem
