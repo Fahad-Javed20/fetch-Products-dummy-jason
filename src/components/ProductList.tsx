@@ -1,7 +1,13 @@
+import ProductItem from "./ProductItem";
 
 
-export default function ProductList() {
+const ProductList = () => {
   return (
-    <div>ProductList</div>
+    <div>
+        <ProductItem />
+    </div>
   )
 }
+
+
+export default ProductList
