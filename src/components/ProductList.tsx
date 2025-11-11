@@ -2,19 +2,16 @@ import ProductItem from "./ProductItem";
 import { useEffect, useState } from "react";
 import type { ProductType } from "../types/ProductType";
 
-interface ProductListProps {
-    product:ProductType[];
-}
 
-const [products, setProducts] = useState<ProductType[]>([]);
+const ProductList = () => {
+
+    const [products, setProducts] = useState<ProductType[]>([])
 const [loading, setLoading] = useState<boolean>(false);
 const [errors, setErrors] = useState<string>("");
 
-const ProductList = ({product}:ProductListProps) => {
-
     const fetchData = async () => {
     try {
-    //   setLoading(true);
+      setLoading(true);
       const response = await fetch("https://dummyjson.com/products");
       if (!response.ok) {
         throw new Error ("NetWork Response is not oK");
@@ -46,7 +43,6 @@ const ProductList = ({product}:ProductListProps) => {
         item = {product}
         />
       ))}
-      <ProductItem />
 
 
     </div>
@@ -54,3 +50,6 @@ const ProductList = ({product}:ProductListProps) => {
 };
 
 export default ProductList;
+
+
+
