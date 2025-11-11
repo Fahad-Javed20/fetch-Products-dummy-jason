@@ -33,8 +33,11 @@ const ProductItem = ({ item }: ProductItemProps) => {
 
         <div className="flex flex-col gap-3 pt-5">
           <p className="text-gray-600">Rating: {item.rating}</p>
-          <h1 className="self-end px-3 py-2">Total: ${finalPrice}</h1>
         </div>
+        <div className="flex justify-end">
+            <span className="font-bold mr-2">Grand Total:</span>
+            <span>${finalPrice}</span>
+          </div>
 
         <button className="bg-linear-to-r from-purple-600 to-pink-500 mt-5 px-3 py-2 w-full rounded-md text-white mb-2">
           ADD TO CART
